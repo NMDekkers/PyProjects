@@ -108,6 +108,20 @@ def delete_client_sectrets(): # delete the initial json file
 
 import os
 import sys
+import youtube_dl
+
+# init settings
+
+playlist_id= 'PLaH0iUC7M8fRJPwnZcfVS0d6nPdKsVala'
+ydl_opts = {
+    'format': 'bestaudio/best',
+    'outtmpl': 'C:\Users\Nick\Documents\PyProjects\test',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '320',
+    }],
+}
 
 # Make youtube build
 if os.path.isfile("%s-oauth2.json" % sys.argv[0]):
@@ -119,5 +133,39 @@ else:
     delete_client_sectrets()
     youtube,storage,credentials = youtube_builder() 
 
+playlistitems_list_request = youtube.playlistItems().list(
+    playlistId=playlist_id,
+    part="snippet",
+    maxResults=50)
+
+while playlistitems_list_request: # check for every max results. (loops when you have a big playlist)
+    playlistitems_list_response = playlistitems_list_request.execute()
+    
+    
+    
+    
+    
+    
+    
+    
+    # download the songs
+#    for song_link in :
+#        
+#        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+#            ydl.download([song_link])
+    
+    
+    
+    
+    
+    
+    
+    playlistitems_list_request = youtube.playlistItems().list_next(
+      playlistitems_list_request, playlistitems_list_response) # volgende pagina results
 
     
+with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    ydl.download(['BaGctWMlnqI'])
+
+
+
