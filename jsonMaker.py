@@ -1,4 +1,4 @@
-def jsonMaker():
+def jsonMaker(): # make a json with the client secrets
     import json
     
     client_secret_dict={
@@ -15,7 +15,7 @@ def jsonMaker():
     
     return
 
-def youtube_auth():
+def youtube_auth(): # after having a json file, and using this service for the first time, 
   
     import os
     import sys
@@ -72,7 +72,7 @@ def youtube_auth():
     
     return
       
-def youtube_builder():  
+def youtube_builder():  # make a youtube build from which you can request stuff.
     import sys
     import httplib2
     from oauth2client.file import Storage
@@ -87,7 +87,8 @@ def youtube_builder():
       http=credentials.authorize(httplib2.Http()))
       
     return youtube,storage,credentials
-def delete_client_sectrets():
+
+def delete_client_sectrets(): # delete the initial json file
     import os   
 #    print os.path.dirname(os.path.abspath(__file__))
 #    print os.getcwd()
@@ -107,5 +108,16 @@ def delete_client_sectrets():
 
 import os
 import sys
+
+# Make youtube build
 if os.path.isfile("%s-oauth2.json" % sys.argv[0]):
-    print True
+    youtube,storage,credentials = youtube_builder() 
+
+else:
+    jsonMaker()
+    youtube_auth()
+    delete_client_sectrets()
+    youtube,storage,credentials = youtube_builder() 
+
+
+    
