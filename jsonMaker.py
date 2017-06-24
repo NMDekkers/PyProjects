@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 def jsonMaker(): # make a json with the client secrets
     import json
     
@@ -112,10 +113,10 @@ import youtube_dl
 
 # init settings
 
-playlist_id= 'PLaH0iUC7M8fRJPwnZcfVS0d6nPdKsVala'
+playlist_id= 'PLaH0iUC7M8fQa0xt-lInCSXivUOB_Yo4p'
 ydl_opts = {
     'format': 'bestaudio/best',
-    'outtmpl': 'C:\Users\Nick\Documents\PyProjects\test',
+    'outtmpl': 'C:\\Users\\Nick\\Documents\\PyProjects\\test\\%(title)s-%(id)s.%(ext)s',
     'postprocessors': [{
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'mp3',
@@ -165,7 +166,13 @@ while playlistitems_list_request: # check for every max results. (loops when you
 
     
 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-    ydl.download(['BaGctWMlnqI'])
-
+    
+    info_dict = ydl.extract_info(video, download=False)
+    video_url = info_dict.get("url", None)
+    video_id = info_dict.get("id", None)
+    video_title = info_dict.get('title', None)
+    
+    
+    #ydl.download([playlist_id])
 
 
